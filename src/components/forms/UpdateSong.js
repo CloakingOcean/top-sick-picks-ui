@@ -2,19 +2,15 @@ import React from "react";
 
 function UpdateSong({ match: { params } }) {
   const [name, setName] = React.useState("");
-  // const [artists, setArtists] = React.useState("");
-
-  /* Artists is a list of uniqueIDs. To determine which input is for which uniqueId, you must check their state.
-  
-    e.x.:
-    [
-      UUID-1,
-      UUID-2,
-      UUID-3,
-      UUID-4,
-      UUID-5,
-      UUID-6,
-    ]
+  const [artists, setArtists] = React.useState(""); // List of values?
+  /*
+  [
+    artistField1,
+    artistField2,
+    artistField3,
+    artistField4,
+    artistField5,
+  ]
 
   */
 
@@ -23,28 +19,10 @@ function UpdateSong({ match: { params } }) {
   const [review, setReview] = React.useState("");
 
   React.useEffect(() => {
-    let artists = [];
-    artists.push(
-      <input
-        value={artistsValues[0]}
-        type="text"
-        key="taco" // TODO: Fix index dependency later
-        onChange={onArtistsInputChange}
-      />
-    );
-    setArtists(artists);
+    let artistsArray = [];
+    artistsArray.push("");
+    setArtists(artistsArray);
   }, []);
-
-  function addArtistInputUniqueId(uniqueID) {
-    if (artists.includes(uniqueID)) {
-      console.error(
-        "UniqueID of an artist input has *already* been added! Please ensure this *does not* happen!"
-      );
-      return;
-    }
-
-    artists.push(uniqueID);
-  }
 
   function onInputChange(e, setStateFunc) {
     setStateFunc(e.target.value);
@@ -63,6 +41,12 @@ function UpdateSong({ match: { params } }) {
     event.target.value;
   }
 
+  function setItemOfArtistsArray(index, value) {
+    const tempArray = artists.slice(0);
+    tempArray[index] = value;
+    setArtists(tempArray);
+  }
+
   return (
     <form onSubmit={onSubmit}>
       <label htmlFor="nameInput">Name</label>
@@ -77,9 +61,26 @@ function UpdateSong({ match: { params } }) {
 
       <label>
         Artists
-        {console.log(artists)}
-        {console.log("Type of artists:" + typeof artists)}
-        {typeof artists === "object" && artists}
+        {artists &&
+          artists.forEach((artist) => {
+            console.log("artist: " + artist);
+          })}
+        {artists &&
+          artists.map((artist, index) => {
+            return (
+              <input
+                key={index}
+                value={artist}
+                type="text"
+                onChange={(event) => {
+                  setItemOfArtistsArray(index, event.target.value);
+                  console.log(
+                    `Changed an artist input: ${event.target.value}!`
+                  );
+                }}
+              />
+            );
+          })}
       </label>
 
       <button type="button" onClick={addArtistInput}>
