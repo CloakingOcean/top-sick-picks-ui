@@ -5,11 +5,11 @@ function UpdateSong({ match: { params } }) {
   const [artists, setArtists] = React.useState(""); // List of values?
   /*
   [
-    artistField1,
-    artistField2,
-    artistField3,
-    artistField4,
-    artistField5,
+    artistFieldValue1,
+    artistFieldValue2,
+    artistFieldValue3,
+    artistFieldValue4,
+    artistFieldValue5,
   ]
 
   */
@@ -34,11 +34,26 @@ function UpdateSong({ match: { params } }) {
   }
 
   function addArtistInput(event) {
+    console.log("Artists:");
+    for (let prop of artists) {
+      console.log(`prop: ${prop}`);
+    }
+
+    const tempArray = artists.slice(0);
+    tempArray[tempArray.length] = "";
+
+    console.log("TempArray:");
+    for (let prop of tempArray) {
+      console.log(`prop: ${prop}`);
+    }
+
+    setArtists(tempArray);
     console.log("Hit add Artist Input");
   }
 
-  function onArtistsInputChange(event) {
-    event.target.value;
+  function onArtistsInputChange(event, index) {
+    setItemOfArtistsArray(index, event.target.value);
+    console.log(`Changed an artist input: ${event.target.value}!`);
   }
 
   function setItemOfArtistsArray(index, value) {
@@ -73,10 +88,7 @@ function UpdateSong({ match: { params } }) {
                 value={artist}
                 type="text"
                 onChange={(event) => {
-                  setItemOfArtistsArray(index, event.target.value);
-                  console.log(
-                    `Changed an artist input: ${event.target.value}!`
-                  );
+                  onArtistsInputChange(event, index);
                 }}
               />
             );
