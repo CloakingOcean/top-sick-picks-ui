@@ -47,12 +47,12 @@ function Index() {
                   <td>{song.rating}</td>
                   <td>{song.review}</td>
                   <td>
-                    <a href={`/api/songs/editSong?id=${encodeURI(song._id)}`}>
+                    <a href={`/api/songs/editSong/${encodeURI(song._id)}`}>
                       <button>Edit</button>
                     </a>
                   </td>
                   <td>
-                    <a href={`/api/songs/updateSong?id=${encodeURI(song._id)}`}>
+                    <a href={`/api/songs/updateSong/${encodeURI(song._id)}`}>
                       <button>Update</button>
                     </a>
                   </td>
