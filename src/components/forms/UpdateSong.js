@@ -30,10 +30,24 @@ function UpdateSong({ match: { params } }) {
 
   function onSubmit(event) {
     event.preventDefault();
+
+    console.log(event.target.closestElement("form"));
+
+    // fetch(`https://localhost:3005/api/songs/${}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     firstParam: "yourValue",
+    //     secondParam: "yourOtherValue",
+    //   }),
+    // });
     console.log("Submitted");
   }
 
-  function addArtistInput(event) {
+  function addArtistInput() {
     console.log("Artists:");
     for (let prop of artists) {
       console.log(`prop: ${prop}`);
@@ -49,6 +63,16 @@ function UpdateSong({ match: { params } }) {
 
     setArtists(tempArray);
     console.log("Hit add Artist Input");
+  }
+
+  function deleteArtistInput() {
+    if (artists.length === 1) {
+      return;
+    }
+
+    const tempArray = artists.slice(0);
+    tempArray.pop();
+    setArtists(tempArray);
   }
 
   function onArtistsInputChange(event, index) {
@@ -97,6 +121,10 @@ function UpdateSong({ match: { params } }) {
 
       <button type="button" onClick={addArtistInput}>
         Add
+      </button>
+
+      <button type="button" onClick={deleteArtistInput}>
+        Delete
       </button>
 
       {/* <input
