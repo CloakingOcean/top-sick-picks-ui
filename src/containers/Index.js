@@ -4,6 +4,7 @@ import DeleteButton from "./DeleteButton";
 
 function Index() {
   const [songs, setSongs] = React.useState();
+  let MAX_ARTIST_LENGTH;
 
   React.useEffect(async function () {
     const url = "http://localhost:3005/api/songs/";
@@ -12,6 +13,19 @@ function Index() {
     console.log(data);
     if (songs === undefined) {
       setSongs(data);
+
+      MAX_ARTIST_LENGTH = 0;
+
+      data.forEach((song) => {
+        let currentMax = 0;
+        song.artists.forEach((artist) => {
+          currentMax++;
+        });
+
+        if (currentMax > MAX_ARTIST_LENGTH) {
+          MAX_ARTIST_LENGTH = currentMax;
+        }
+      });
     }
   });
 
@@ -30,7 +44,7 @@ function Index() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Artists</th>
+            <th colSpan={songs && MAX_ARTIST_LENGTH}>Artists</th>
             <th>Youtube Link</th>
             <th>Rating</th>
             <th>Review</th>
@@ -42,7 +56,10 @@ function Index() {
               <tbody key={song._id}>
                 <tr>
                   <td>{song.name}</td>
-                  <td>{song.artists}</td>
+                  {song.artists &&
+                    song.artists.map((artist) => {
+                      return <td key={artist}>{artist}</td>;
+                    })}
                   <td>{song["youtube-link"]}</td>
                   <td>{song.rating}</td>
                   <td>{song.review}</td>

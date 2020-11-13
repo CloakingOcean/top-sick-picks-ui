@@ -31,20 +31,38 @@ function UpdateSong({ match: { params } }) {
   function onSubmit(event) {
     event.preventDefault();
 
-    console.log(event.target.closestElement("form"));
+    const form = event.target.closest("form");
 
-    // fetch(`https://localhost:3005/api/songs/${}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     firstParam: "yourValue",
-    //     secondParam: "yourOtherValue",
-    //   }),
-    // });
+    const bodyObj = {};
+
+    form.querySelectorAll("input").forEach((input) => {
+      if (!"form-group" in input.dataset) {
+        bodyObj[input.name] = input.value;
+        return;
+      }
+
+      // Is apart of a form group
+      if (input.name in bodyObj) {
+        //Has been inputed before
+        const formGroup = bodyObj[input.name];
+        formGroup.push(input.value);
+        bodyObj[input.name] = formGroup;
+      } else {
+        const newFormGroup = [input.value];
+        bodyObj[input.name] = newFormGroup;
+      }
+    });
+
+    fetch(`http://localhost:3005/api/songs/${params.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyObj),
+    });
     console.log("Submitted");
+    console.log(bodyObj);
   }
 
   function addArtistInput() {
@@ -92,6 +110,7 @@ function UpdateSong({ match: { params } }) {
       <input
         id="nameInput"
         value={name}
+        name="Name"
         type="text"
         onChange={(e) => {
           onInputChange(e, setName);
@@ -110,10 +129,12 @@ function UpdateSong({ match: { params } }) {
               <input
                 key={index}
                 value={artist}
+                name="Artist"
                 type="text"
                 onChange={(event) => {
                   onArtistsInputChange(event, index);
                 }}
+                data-form-group="artists"
               />
             );
           })}
@@ -140,6 +161,7 @@ function UpdateSong({ match: { params } }) {
       <input
         id="youtubeLinkInput"
         value={youtubeLink}
+        name="youtube-link"
         type="text"
         onChange={(e) => {
           onInputChange(e, setYoutubeLink);
@@ -149,6 +171,7 @@ function UpdateSong({ match: { params } }) {
       <label htmlFor="ratingInput">Rating</label>
       <input
         id="ratingInput"
+        name="rating"
         value={rating}
         type="text"
         onChange={(e) => {
@@ -159,6 +182,7 @@ function UpdateSong({ match: { params } }) {
       <label htmlFor="reviewInput">Review</label>
       <input
         id="reviewInput"
+        name="review"
         value={review}
         type="textarea"
         onChange={(e) => {
