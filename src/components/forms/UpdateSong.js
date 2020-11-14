@@ -3,23 +3,20 @@ import ResourceForm from "./ResourceForm";
 
 function UpdateSong({ match: { params } }) {
   const [name, setName] = React.useState("");
-  const [artists, setArtists] = React.useState(""); // List of values?
-  /*
-  [
-    artistFieldValue1,
-    artistFieldValue2,
-    artistFieldValue3,
-    artistFieldValue4,
-    artistFieldValue5,
-  ]
-
-  */
+  const [artists, setArtists] = React.useState(""); // Array of text values
   const [youtubeLink, setYoutubeLink] = React.useState("");
   const [rating, setRating] = React.useState("");
   const [review, setReview] = React.useState("");
   const [redirect, setRedirect] = React.useState(false);
 
-  const GROUPED_FIELDS = ["artists"];
+  const setMethods = {
+    setName: setName,
+    setArtists: setArtists,
+    setYoutubeLink: setYoutubeLink,
+    setRating: setRating,
+    setReview: setReview,
+    setRedirect: setRedirect,
+  };
 
   React.useEffect(() => {
     let artistsArray = [];
@@ -37,25 +34,16 @@ function UpdateSong({ match: { params } }) {
         console.dir(form);
         console.dir(data);
 
-        Object.keys(data).forEach((field) => {
-          switch (field) {
-            case "name":
-              setName(data[field]);
-              break;
-            case "artists":
-              setArtists(data[field]);
-              break;
-            case "youtube-link":
-              setYoutubeLink(data[field]);
-              break;
-            case "rating":
-              setRating(data[field]);
-              break;
-            case "review":
-              setReview(data[field]);
-              break;
-          }
-        });
+        Object.keys(data)
+          .filter((field) => {
+            field !== "_id";
+          })
+          .forEach((field) => {
+            const firstCapLetter = field.charAt(0).toUpperCase();
+            const rest = field.slice(1);
+            console.log(`set${firstCapLetter}${rest}`);
+            setMethods[`set${firstCapLetter}${rest}`](data[field]);
+          });
       });
   }
 
