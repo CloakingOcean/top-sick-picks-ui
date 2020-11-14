@@ -4,27 +4,41 @@ import DeleteButton from "./DeleteButton";
 
 function Index() {
   const [songs, setSongs] = React.useState();
-  let MAX_ARTIST_LENGTH;
+
+  const [maxColumnLengths, setMaxColumnLengths] = React.useState({});
+
+  const groupedFields = ["artists"];
+
+  /* 
+    Contains the maxmium length of grouped categories.
+    This allows us to correctly layout the table.
+    {
+      artists: 0
+      supporters: 4
+    }
+  */
 
   React.useEffect(async function () {
     const url = "http://localhost:3005/api/songs/";
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     if (songs === undefined) {
       setSongs(data);
 
-      MAX_ARTIST_LENGTH = 0;
+      groupedFields.forEach((field) => {
+        let maxFieldLength = 0;
 
-      data.forEach((song) => {
-        let currentMax = 0;
-        song.artists.forEach((artist) => {
-          currentMax++;
+        data.forEach((song) => {
+          if (song.artists.length > maxFieldLength) {
+            maxFieldLength = song.artists.length;
+            console.log("INCREMENTED");
+            console.log(`maxFieldLength: ${maxFieldLength}`);
+          }
         });
 
-        if (currentMax > MAX_ARTIST_LENGTH) {
-          MAX_ARTIST_LENGTH = currentMax;
-        }
+        const maxColumnLengthsCopy = Object.entries(maxColumnLengths);
+        maxColumnLengthsCopy[field] = maxFieldLength;
+        setMaxColumnLengths(maxColumnLengthsCopy);
       });
     }
   });
@@ -44,7 +58,9 @@ function Index() {
         <thead>
           <tr>
             <th>Name</th>
-            <th colSpan={songs && MAX_ARTIST_LENGTH}>Artists</th>
+            <th colSpan={songs && maxColumnLengths && maxColumnLengths.artists}>
+              Artists
+            </th>
             <th>Youtube Link</th>
             <th>Rating</th>
             <th>Review</th>
@@ -57,8 +73,35 @@ function Index() {
                 <tr>
                   <td>{song.name}</td>
                   {song.artists &&
-                    song.artists.map((artist) => {
-                      return <td key={artist}>{artist}</td>;
+                    maxColumnLengths &&
+                    song.artists.map((artist, index) => {
+                      console.log("MaxCOlumnLengths:");
+                      console.log(maxColumnLengths);
+                      const returnJSX = [<td key={artist}>{artist}</td>];
+
+                      {
+                        /* console.log(`Length: ${song.artists.length}`);
+                      console.log("MATH: " + (song.artists.length - 1));
+                      console.log(`artist: ${artist}, index: ${index}`); */
+                      }
+
+                      if (index === song.artists.length - 1) {
+                        console.log("Last iteration...");
+                        console.log(
+                          `MATHS: ${maxColumnLengths["artists"] - index}`
+                        );
+                        for (
+                          let i = 0;
+                          i < maxColumnLengths["artists"] - (index + 1);
+                          i++
+                        ) {
+                          returnJSX.push(
+                            <td key={`${artist}-SPACING-${index}-${i}`}></td>
+                          );
+                        }
+                      }
+
+                      return returnJSX;
                     })}
                   <td>{song["youtube-link"]}</td>
                   <td>{song.rating}</td>
