@@ -26,23 +26,26 @@ function InputField({
   }, []);
 
   return (
-    <div className="input-label-container">
+    <>
       {isArray && isArray !== undefined && <label htmlFor={name}>{name}</label>}
       {isArray &&
         isArray !== undefined &&
         stateValue.map((resource, index) => {
           return (
-            <input
-              id={name}
-              key={index}
-              value={resource}
-              name={name}
-              type={inputType}
-              onChange={(event) => {
-                onChange(event, index);
-              }}
-              data-form-group="artists"
-            />
+            <>
+              <input
+                id={name}
+                key={index}
+                value={resource}
+                name={name}
+                type={inputType}
+                className="form-multi-input"
+                onChange={(event) => {
+                  onChange(event, index);
+                }}
+                data-form-group="artists"
+              />
+            </>
           );
         })}
 
@@ -58,7 +61,7 @@ function InputField({
           />
         </>
       )}
-    </div>
+    </>
   );
 }
 

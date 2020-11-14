@@ -4,6 +4,8 @@ form#resource-form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .input-label-container {
@@ -24,4 +26,23 @@ form#resource-form {
   width: 30vw;
   height: calc(3vw / 1.2);
   margin: 0.5rem;
+}
+
+.form-multi-input {
+  margin-bottom: 1rem;
+}
+
+.button-container {
+  //   display: flex;
+  width: 11rem;
+  //   justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.button-container button {
+  width: 50%;
+}
+
+.submit-button {
+  margin-top: 1rem;
 }

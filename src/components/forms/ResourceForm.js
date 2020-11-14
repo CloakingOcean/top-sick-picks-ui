@@ -87,12 +87,14 @@ function ResourceForm({
           />
         )}
 
-        <button type="button" onClick={addArtistInput}>
-          Add
-        </button>
-        <button type="button" onClick={deleteArtistInput}>
-          Delete
-        </button>
+        <div class="button-container">
+          <button type="button" onClick={addArtistInput}>
+            Add
+          </button>
+          <button type="button" onClick={deleteArtistInput}>
+            Delete
+          </button>
+        </div>
 
         <InputField
           name="youtube-link"
@@ -115,7 +117,7 @@ function ResourceForm({
           inputType="text"
         />
 
-        <button type="submit" onClick={onSubmit}>
+        <button type="submit" className="submit-button" onClick={onSubmit}>
           Submit
         </button>
       </form>
