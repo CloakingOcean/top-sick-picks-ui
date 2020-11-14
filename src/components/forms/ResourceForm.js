@@ -3,6 +3,8 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import InputField from "./InputField";
 
+import { Form, Button } from "reactstrap";
+
 function ResourceForm({
   name,
   setName,
@@ -68,7 +70,7 @@ function ResourceForm({
 
   return (
     <>
-      <form id="resource-form" onSubmit={onSubmit}>
+      <Form id="resource-form" onSubmit={onSubmit}>
         <InputField
           name="name"
           stateValue={name}
@@ -88,12 +90,12 @@ function ResourceForm({
         )}
 
         <div class="button-container">
-          <button type="button" onClick={addArtistInput}>
+          <Button color="primary" type="button" onClick={addArtistInput}>
             Add
-          </button>
-          <button type="button" onClick={deleteArtistInput}>
+          </Button>
+          <Button color="danger" type="button" onClick={deleteArtistInput}>
             Delete
-          </button>
+          </Button>
         </div>
 
         <InputField
@@ -120,7 +122,7 @@ function ResourceForm({
         <button type="submit" className="submit-button" onClick={onSubmit}>
           Submit
         </button>
-      </form>
+      </Form>
       <a href="/">
         <button>Back to Home Page</button>
       </a>

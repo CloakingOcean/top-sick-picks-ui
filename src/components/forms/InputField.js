@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Label } from "reactstrap";
 /**
  * Props:
  * name: The name of the input field.
@@ -27,7 +28,7 @@ function InputField({
 
   return (
     <>
-      {isArray && isArray !== undefined && <label htmlFor={name}>{name}</label>}
+      {isArray && isArray !== undefined && <Label htmlFor={name}>{name}</Label>}
       {isArray &&
         isArray !== undefined &&
         stateValue.map((resource, index) => {
@@ -51,7 +52,7 @@ function InputField({
 
       {!isArray && isArray !== undefined && (
         <>
-          <label htmlFor={name}>{name}</label>
+          <Label htmlFor={name}>{name}</Label>
           <input
             id={name}
             value={stateValue}
