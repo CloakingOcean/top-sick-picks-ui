@@ -1,4 +1,5 @@
 import React from "react";
+import "./DeleteButton.scss";
 
 function DeleteButton({ songProp, updateDelete }) {
   const [song, setSong] = React.useState();
@@ -32,7 +33,11 @@ function DeleteButton({ songProp, updateDelete }) {
     setSong(songProp);
   }, []);
 
-  return <button onClick={handleOnClick}>Delete</button>;
+  return (
+    <button class="delete" onClick={handleOnClick}>
+      Delete
+    </button>
+  );
 }
 
 export default DeleteButton;

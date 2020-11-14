@@ -1,6 +1,8 @@
 import React from "react";
 import ResourceForm from "./ResourceForm";
 
+import "./CreateUpdateSong.scss";
+
 function UpdateSong({ match: { params }, create }) {
   const [name, setName] = React.useState("");
   const [artists, setArtists] = React.useState(""); // Array of text values
@@ -95,25 +97,27 @@ function UpdateSong({ match: { params }, create }) {
   }
 
   return (
-    <ResourceForm
-      name={name}
-      setName={setName}
-      artists={artists}
-      setArtists={setArtists}
-      youtubeLink={youtubeLink}
-      setYoutubeLink={setYoutubeLink}
-      rating={rating}
-      setRating={setRating}
-      review={review}
-      setReview={setReview}
-      redirect={redirect}
-      setRedirect={setRedirect}
-      params={params}
-      deleteArtistInput={deleteArtistInput}
-      addArtistInput={addArtistInput}
-      onArtistsInputChange={onArtistsInputChange}
-      create={create}
-    />
+    <main>
+      <ResourceForm
+        name={name}
+        setName={setName}
+        artists={artists}
+        setArtists={setArtists}
+        youtubeLink={youtubeLink}
+        setYoutubeLink={setYoutubeLink}
+        rating={rating}
+        setRating={setRating}
+        review={review}
+        setReview={setReview}
+        redirect={redirect}
+        setRedirect={setRedirect}
+        params={params}
+        deleteArtistInput={deleteArtistInput}
+        addArtistInput={addArtistInput}
+        onArtistsInputChange={onArtistsInputChange}
+        create={create}
+      />
+    </main>
   );
 }
 

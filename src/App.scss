@@ -1,0 +1,18 @@
+@import "./style-variables/variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+section,
+main,
+aside {
+  background-color: $foreground-color;
+  padding: 2rem;
+  margin: 1rem;
+}

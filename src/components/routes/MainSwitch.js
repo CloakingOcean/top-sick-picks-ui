@@ -1,5 +1,7 @@
 import React from "react";
 
+import Header from "../header/Header";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Index from "../../containers/Index";
@@ -8,6 +10,8 @@ import CreateUpdateSong from "../../components/forms/CreateUpdateSong";
 function MainSwitch() {
   return (
     <Router>
+      <Route path="/" component={Header} />
+
       <Route exact path="/">
         <Index />
       </Route>

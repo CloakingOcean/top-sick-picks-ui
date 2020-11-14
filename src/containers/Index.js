@@ -4,6 +4,8 @@ import DeleteButton from "./DeleteButton";
 
 import { Link } from "react-router-dom";
 
+import "./Index.scss";
+
 function Index() {
   const [songs, setSongs] = React.useState();
 
@@ -52,8 +54,7 @@ function Index() {
   }
 
   return (
-    <>
-      <div>Hello</div>
+    <main>
       <table>
         <thead>
           <tr>
@@ -92,7 +93,11 @@ function Index() {
 
                       return returnJSX;
                     })}
-                  <td>{song["youtube-link"]}</td>
+                  <td>
+                    <a href={song["youtube-link"]} target="_blank">
+                      {song["youtube-link"]}
+                    </a>
+                  </td>
                   <td>{song.rating}</td>
                   <td>{song.review}</td>
                   <td>
@@ -112,7 +117,7 @@ function Index() {
       <Link to="/api/songs/createSong">
         <button>Create Song</button>
       </Link>
-    </>
+    </main>
   );
 }
 

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 
 import MainSwitch from "./components/routes/MainSwitch";
 

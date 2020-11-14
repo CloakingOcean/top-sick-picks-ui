@@ -26,7 +26,7 @@ function InputField({
   }, []);
 
   return (
-    <div>
+    <div className="input-label-container">
       {isArray && isArray !== undefined && <label htmlFor={name}>{name}</label>}
       {isArray &&
         isArray !== undefined &&
