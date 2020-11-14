@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 function UpdateSong({ match: { params } }) {
   const [name, setName] = React.useState("");
@@ -17,6 +18,7 @@ function UpdateSong({ match: { params } }) {
   const [youtubeLink, setYoutubeLink] = React.useState("");
   const [rating, setRating] = React.useState("");
   const [review, setReview] = React.useState("");
+  const [redirect, setRedirect] = React.useState(false);
 
   React.useEffect(() => {
     let artistsArray = [];
@@ -67,6 +69,8 @@ function UpdateSong({ match: { params } }) {
     });
     console.log("Submitted");
     console.log(bodyObj);
+
+    setRedirect(true);
   }
 
   function addArtistInput() {
@@ -109,50 +113,51 @@ function UpdateSong({ match: { params } }) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="nameInput">Name</label>
-      <input
-        id="nameInput"
-        value={name}
-        name="name"
-        type="text"
-        onChange={(e) => {
-          onInputChange(e, setName);
-        }}
-      />
+    <>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="nameInput">Name</label>
+        <input
+          id="nameInput"
+          value={name}
+          name="name"
+          type="text"
+          onChange={(e) => {
+            onInputChange(e, setName);
+          }}
+        />
 
-      <label>
-        Artists
-        {artists &&
-          artists.forEach((artist) => {
-            console.log("artist: " + artist);
-          })}
-        {artists &&
-          artists.map((artist, index) => {
-            return (
-              <input
-                key={index}
-                value={artist}
-                name="artists"
-                type="text"
-                onChange={(event) => {
-                  onArtistsInputChange(event, index);
-                }}
-                data-form-group="artists"
-              />
-            );
-          })}
-      </label>
+        <label>
+          Artists
+          {artists &&
+            artists.forEach((artist) => {
+              console.log("artist: " + artist);
+            })}
+          {artists &&
+            artists.map((artist, index) => {
+              return (
+                <input
+                  key={index}
+                  value={artist}
+                  name="artists"
+                  type="text"
+                  onChange={(event) => {
+                    onArtistsInputChange(event, index);
+                  }}
+                  data-form-group="artists"
+                />
+              );
+            })}
+        </label>
 
-      <button type="button" onClick={addArtistInput}>
-        Add
-      </button>
+        <button type="button" onClick={addArtistInput}>
+          Add
+        </button>
 
-      <button type="button" onClick={deleteArtistInput}>
-        Delete
-      </button>
+        <button type="button" onClick={deleteArtistInput}>
+          Delete
+        </button>
 
-      {/* <input
+        {/* <input
         id="artistsInput"
         value={artists}
         type="text"
@@ -161,43 +166,45 @@ function UpdateSong({ match: { params } }) {
         }}
       /> */}
 
-      <label htmlFor="youtubeLinkInput">Youtube Link</label>
-      <input
-        id="youtubeLinkInput"
-        value={youtubeLink}
-        name="youtube-link"
-        type="text"
-        onChange={(e) => {
-          onInputChange(e, setYoutubeLink);
-        }}
-      />
+        <label htmlFor="youtubeLinkInput">Youtube Link</label>
+        <input
+          id="youtubeLinkInput"
+          value={youtubeLink}
+          name="youtube-link"
+          type="text"
+          onChange={(e) => {
+            onInputChange(e, setYoutubeLink);
+          }}
+        />
 
-      <label htmlFor="ratingInput">Rating</label>
-      <input
-        id="ratingInput"
-        name="rating"
-        value={rating}
-        type="text"
-        onChange={(e) => {
-          onInputChange(e, setRating);
-        }}
-      />
+        <label htmlFor="ratingInput">Rating</label>
+        <input
+          id="ratingInput"
+          name="rating"
+          value={rating}
+          type="text"
+          onChange={(e) => {
+            onInputChange(e, setRating);
+          }}
+        />
 
-      <label htmlFor="reviewInput">Review</label>
-      <input
-        id="reviewInput"
-        name="review"
-        value={review}
-        type="textarea"
-        onChange={(e) => {
-          onInputChange(e, setReview);
-        }}
-      />
+        <label htmlFor="reviewInput">Review</label>
+        <input
+          id="reviewInput"
+          name="review"
+          value={review}
+          type="textarea"
+          onChange={(e) => {
+            onInputChange(e, setReview);
+          }}
+        />
 
-      <button type="submit" onClick={onSubmit}>
-        Submit
-      </button>
-    </form>
+        <button type="submit" onClick={onSubmit}>
+          Submit
+        </button>
+      </form>
+      {redirect && <Redirect to="/" />}
+    </>
   );
 }
 
