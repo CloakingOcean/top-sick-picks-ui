@@ -1,6 +1,8 @@
 import React from "react";
 import "./DeleteButton.scss";
 
+import { Button } from "reactstrap";
+
 function DeleteButton({ songProp, updateDelete }) {
   const [song, setSong] = React.useState();
 
@@ -34,9 +36,9 @@ function DeleteButton({ songProp, updateDelete }) {
   }, []);
 
   return (
-    <button class="delete" onClick={handleOnClick}>
+    <Button class="delete" color="danger" onClick={handleOnClick}>
       Delete
-    </button>
+    </Button>
   );
 }
 
