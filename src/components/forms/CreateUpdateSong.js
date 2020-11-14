@@ -24,10 +24,7 @@ function UpdateSong({ match: { params }, create }) {
     setArtists(artistsArray);
 
     if (!create) {
-      console.log("ADDING POPULATION BECAUSE IT Is UPDATE, NOT CREATE");
       handlePopulation(artistsArray);
-    } else {
-      console.log("NOT ADDING POPULATION BECAUSE IT IS CREATE, NOT UDPATE");
     }
   }, []);
 
@@ -42,19 +39,12 @@ function UpdateSong({ match: { params }, create }) {
       .then((response) => response.json())
       .then((data) => {
         const form = document.getElementById("resource-form");
-        console.dir(form);
-        console.dir(data);
-
-        console.log("Getting ready");
-        console.log(Object.keys(data).length);
 
         Object.keys(data)
           .filter((field) => {
             return field !== "_id";
           })
           .forEach((field) => {
-            console.log(`field: ${field} value: ${data[field]}`);
-
             let computedName = field;
 
             if (field.includes("-")) {
@@ -65,8 +55,6 @@ function UpdateSong({ match: { params }, create }) {
             const rest = computedName.slice(1);
 
             computedName = `set${firstCapLetter}${rest}`;
-
-            console.log(computedName);
 
             setMethods[computedName](data[field]);
           });
