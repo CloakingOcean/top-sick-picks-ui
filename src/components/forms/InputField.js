@@ -20,31 +20,17 @@ function InputField({
 }) {
   const [isArray, setisArray] = React.useState(false);
   React.useEffect(() => {
-    console.log("USE EFFECT!");
-    console.log("STATE VALUE:");
-    console.log(stateValue);
-    console.dir(stateValue);
-    console.log("IS ARRAY");
-    console.log(Array.isArray(stateValue));
-
     if (Array.isArray(stateValue)) {
-      console.log(`${stateValue} is array`);
       setisArray(true);
-    } else {
-      console.log(`${stateValue} is NOT array`);
     }
   }, []);
 
   return (
     <div>
+      {isArray && isArray !== undefined && <label htmlFor={name}>{name}</label>}
       {isArray &&
         isArray !== undefined &&
         stateValue.map((resource, index) => {
-          console.log("DOING STUFF");
-          console.log("RESOURCE");
-          console.log(resource);
-          console.log("END RESOURCE");
-
           return (
             <input
               id={name}
