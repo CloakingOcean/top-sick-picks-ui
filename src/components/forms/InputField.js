@@ -28,7 +28,10 @@ function InputField({
     console.log(Array.isArray(stateValue));
 
     if (Array.isArray(stateValue)) {
+      console.log(`${stateValue} is array`);
       setisArray(true);
+    } else {
+      console.log(`${stateValue} is NOT array`);
     }
   }, []);
 
@@ -57,7 +60,7 @@ function InputField({
           );
         })}
 
-      {/* {!isArray && isArray !== undefined && (
+      {!isArray && isArray !== undefined && (
         <>
           <label htmlFor={name}>{name}</label>
           <input
@@ -68,7 +71,7 @@ function InputField({
             onChange={onChange}
           />
         </>
-      )} */}
+      )}
     </div>
   );
 }

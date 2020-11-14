@@ -30,42 +30,43 @@ function UpdateSong({ match: { params } }) {
   }, []);
 
   async function handlePopulation(artistsArray) {
+    console.log("HELLOOOOOOOOOOO");
     const url = `http://localhost:3005/api/songs/${params.id}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         const form = document.getElementById("resource-form");
         console.dir(form);
+        console.dir(data);
 
-        Object.keys(data)
-          .filter((field) => field !== "_id")
-          .forEach((field) => {
-            const targetElement = document.getElementById(field);
+        Object.keys(data).forEach((field) => {
+          console.log("SETTING ARTISTS");
 
-            if (targetElement == null) {
-              return;
-            }
-            switch (field) {
-              case "name":
-                setName(data[field]);
-                break;
-              case "artists":
-                console.log("SETTING ARTISTS");
-                console.log(data[field]);
-                console.log(typeof data[field]);
-                setArtists(data[field]);
-                break;
-              case "youtube-link":
-                setYoutubeLink(data[field]);
-                break;
-              case "rating":
-                setRating(data[field]);
-                break;
-              case "review":
-                setReview(data[field]);
-                break;
-            }
-          });
+          console.log(`field ${field}`);
+
+          console.log(data[field]);
+
+          switch (field) {
+            case "name":
+              setName(data[field]);
+              break;
+            case "artists":
+              console.log("SETTING ARTISTSasdASDFASDFSDAFDSAFSDAFSADFSDAFA!");
+              console.log(data[field]);
+              console.log(typeof data[field]);
+              setArtists(data[field]);
+              break;
+            case "youtube-link":
+              setYoutubeLink(data[field]);
+              break;
+            case "rating":
+              setRating(data[field]);
+              break;
+            case "review":
+              setReview(data[field]);
+              break;
+          }
+        });
       });
   }
 
@@ -124,7 +125,6 @@ function UpdateSong({ match: { params } }) {
   }
 
   function onArtistsInputChange(event, index) {
-    console.log("INDEX: " + index);
     setItemOfArtistsArray(index, event.target.value);
   }
 
@@ -147,18 +147,17 @@ function UpdateSong({ match: { params } }) {
           setStateFunc={setName}
           inputType="text"
         />
-
-        <InputField
-          name="artists"
-          stateValue={["test", "test2"]}
-          setStateFunc={setArtists}
-          inputType="text"
-          onChange={(event, index) => {
-            debugger;
-            onArtistsInputChange(event, index);
-          }}
-        />
-
+        {artists !== undefined && artists && (
+          <InputField
+            name="artists"
+            stateValue={artists}
+            setStateFunc={setArtists}
+            inputType="text"
+            onChange={(event, index) => {
+              onArtistsInputChange(event, index);
+            }}
+          />
+        )}
         {/* <label>
           Artists
           {artists &&
@@ -178,15 +177,12 @@ function UpdateSong({ match: { params } }) {
               );
             })}
         </label> */}
-
         <button type="button" onClick={addArtistInput}>
           Add
         </button>
-
         <button type="button" onClick={deleteArtistInput}>
           Delete
         </button>
-
         <label htmlFor="youtubeLinkInput">Youtube Link</label>
         <input
           id="youtube-link"
@@ -197,7 +193,6 @@ function UpdateSong({ match: { params } }) {
             onInputChange(e, setYoutubeLink);
           }}
         />
-
         <label htmlFor="ratingInput">Rating</label>
         <input
           id="rating"
@@ -208,7 +203,6 @@ function UpdateSong({ match: { params } }) {
             onInputChange(e, setRating);
           }}
         />
-
         <label htmlFor="reviewInput">Review</label>
         <input
           id="review"
@@ -219,7 +213,6 @@ function UpdateSong({ match: { params } }) {
             onInputChange(e, setReview);
           }}
         />
-
         <button type="submit" onClick={onSubmit}>
           Submit
         </button>
