@@ -45,17 +45,38 @@ function UpdateSong({ match: { params }, create }) {
         console.dir(form);
         console.dir(data);
 
+        console.log("Getting ready");
+        console.log(Object.keys(data).length);
+
         Object.keys(data)
           .filter((field) => {
-            field !== "_id";
+            return field !== "_id";
           })
           .forEach((field) => {
-            const firstCapLetter = field.charAt(0).toUpperCase();
-            const rest = field.slice(1);
-            console.log(`set${firstCapLetter}${rest}`);
-            setMethods[`set${firstCapLetter}${rest}`](data[field]);
+            console.log(`field: ${field} value: ${data[field]}`);
+
+            let computedName = field;
+
+            if (field.includes("-")) {
+              computedName = kebabToCamelCase(field);
+            }
+
+            const firstCapLetter = computedName.charAt(0).toUpperCase();
+            const rest = computedName.slice(1);
+
+            computedName = `set${firstCapLetter}${rest}`;
+
+            console.log(computedName);
+
+            setMethods[computedName](data[field]);
           });
       });
+  }
+
+  function kebabToCamelCase(string) {
+    return string.replace(/-([a-z])/g, function (g) {
+      return g[1].toUpperCase();
+    });
   }
 
   function addArtistInput() {
