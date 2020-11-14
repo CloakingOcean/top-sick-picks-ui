@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import InputField from "./InputField";
 
 function UpdateSong({ match: { params } }) {
   const [name, setName] = React.useState("");
@@ -44,24 +45,14 @@ function UpdateSong({ match: { params } }) {
             if (targetElement == null) {
               return;
             }
-
-            if (field === "name") {
-              document.getElementById("name").value = data[field];
-            }
-
-            if (GROUPED_FIELDS.includes(field)) {
-              //Is a grouped thing. Should be included as such
-              setArtists(data[field]);
-              return;
-            }
-
-            document.getElementById(field).value = data[field];
-
             switch (field) {
               case "name":
                 setName(data[field]);
                 break;
               case "artists":
+                console.log("SETTING ARTISTS");
+                console.log(data[field]);
+                console.log(typeof data[field]);
                 setArtists(data[field]);
                 break;
               case "youtube-link":
@@ -76,10 +67,6 @@ function UpdateSong({ match: { params } }) {
             }
           });
       });
-  }
-
-  function onInputChange(e, setStateFunc) {
-    setStateFunc(e.target.value);
   }
 
   function onSubmit(event) {
@@ -137,6 +124,7 @@ function UpdateSong({ match: { params } }) {
   }
 
   function onArtistsInputChange(event, index) {
+    console.log("INDEX: " + index);
     setItemOfArtistsArray(index, event.target.value);
   }
 
@@ -146,21 +134,32 @@ function UpdateSong({ match: { params } }) {
     setArtists(tempArray);
   }
 
+  function onInputChange(e, setFunc) {
+    setFunc(e.target.value);
+  }
+
   return (
     <>
       <form id="resource-form" onSubmit={onSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          value={name}
+        <InputField
           name="name"
-          type="text"
-          onChange={(e) => {
-            onInputChange(e, setName);
+          stateValue={name}
+          setStateFunc={setName}
+          inputType="text"
+        />
+
+        <InputField
+          name="artists"
+          stateValue={["test", "test2"]}
+          setStateFunc={setArtists}
+          inputType="text"
+          onChange={(event, index) => {
+            debugger;
+            onArtistsInputChange(event, index);
           }}
         />
 
-        <label>
+        {/* <label>
           Artists
           {artists &&
             artists.map((artist, index) => {
@@ -178,7 +177,7 @@ function UpdateSong({ match: { params } }) {
                 />
               );
             })}
-        </label>
+        </label> */}
 
         <button type="button" onClick={addArtistInput}>
           Add

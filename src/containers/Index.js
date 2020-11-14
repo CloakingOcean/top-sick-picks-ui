@@ -77,6 +77,7 @@ function Index() {
                   {song.artists &&
                     maxColumnLengths &&
                     song.artists.map((artist, index) => {
+                      const returnJSX = [<td key={artist}>{artist}</td>];
                       if (index === song.artists.length - 1) {
                         for (
                           let i = 0;
