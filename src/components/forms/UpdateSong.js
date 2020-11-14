@@ -36,7 +36,11 @@ function UpdateSong({ match: { params } }) {
     const bodyObj = {};
 
     form.querySelectorAll("input").forEach((input) => {
-      if (!"form-group" in input.dataset) {
+      console.log(input);
+
+      if (!input.hasAttribute("data-form-group")) {
+        console.log("VALUE!~!!!!!!!!!");
+        console.log(input.value);
         bodyObj[input.name] = input.value;
         return;
       }
@@ -110,7 +114,7 @@ function UpdateSong({ match: { params } }) {
       <input
         id="nameInput"
         value={name}
-        name="Name"
+        name="name"
         type="text"
         onChange={(e) => {
           onInputChange(e, setName);
@@ -129,7 +133,7 @@ function UpdateSong({ match: { params } }) {
               <input
                 key={index}
                 value={artist}
-                name="Artist"
+                name="artists"
                 type="text"
                 onChange={(event) => {
                   onArtistsInputChange(event, index);

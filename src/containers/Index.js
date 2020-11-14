@@ -64,6 +64,9 @@ function Index() {
             <th>Youtube Link</th>
             <th>Rating</th>
             <th>Review</th>
+            <th>Edit</th>
+            <th>Update</th>
+            <th>Delete</th>
           </tr>
         </thead>
         {songs !== undefined &&
