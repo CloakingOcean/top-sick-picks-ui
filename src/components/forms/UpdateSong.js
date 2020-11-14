@@ -29,8 +29,11 @@ function UpdateSong({ match: { params } }) {
     handlePopulation(artistsArray);
   }, []);
 
+  function poop() {
+    return;
+  }
+
   async function handlePopulation(artistsArray) {
-    console.log("CALLING HANDLE POPULATION!");
     const url = `http://localhost:3005/api/songs/5fac3b96b6d9a20cd4eee67a`;
     console.log("DATA:");
     fetch(url)
@@ -270,6 +273,7 @@ function UpdateSong({ match: { params } }) {
           Submit
         </button>
       </form>
+      <button>Back to Home Page</button>
       {redirect && <Redirect to="/" />}
     </>
   );
