@@ -2,6 +2,8 @@ import React from "react";
 
 import DeleteButton from "./DeleteButton";
 
+import { Link } from "react-router-dom";
+
 function Index() {
   const [songs, setSongs] = React.useState();
 
@@ -64,7 +66,6 @@ function Index() {
             <th>Youtube Link</th>
             <th>Rating</th>
             <th>Review</th>
-            <th>Edit</th>
             <th>Update</th>
             <th>Delete</th>
           </tr>
@@ -110,14 +111,9 @@ function Index() {
                   <td>{song.rating}</td>
                   <td>{song.review}</td>
                   <td>
-                    <a href={`/api/songs/editSong/${encodeURI(song._id)}`}>
-                      <button>Edit</button>
-                    </a>
-                  </td>
-                  <td>
-                    <a href={`/api/songs/updateSong/${encodeURI(song._id)}`}>
+                    <Link to={`/api/songs/updateSong/${encodeURI(song._id)}`}>
                       <button>Update</button>
-                    </a>
+                    </Link>
                   </td>
                   <td>
                     <DeleteButton songProp={song} updateDelete={updateDelete} />
@@ -128,9 +124,9 @@ function Index() {
           })}
       </table>
 
-      <a href="/api/songs/createSong">
+      <Link to="/api/songs/createSong">
         <button>Create Song</button>
-      </a>
+      </Link>
     </>
   );
 }

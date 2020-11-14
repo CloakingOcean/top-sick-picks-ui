@@ -208,7 +208,7 @@ function UpdateSong({ match: { params } }) {
       <a href="/">
         <button>Back to Home Page</button>
       </a>
-      {redirect && <Redirect to="/" />}
+      {redirect && <Redirect to="/" push />}
     </>
   );
 }

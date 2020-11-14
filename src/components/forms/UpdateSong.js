@@ -29,7 +29,7 @@ function UpdateSong({ match: { params } }) {
   }, []);
 
   async function handlePopulation(artistsArray) {
-    const url = `http://localhost:3005/api/songs/5fac3b96b6d9a20cd4eee67a`;
+    const url = `http://localhost:3005/api/songs/${params.id}`;
     console.log("DATA:");
     fetch(url)
       .then((response) => response.json())
@@ -271,7 +271,7 @@ function UpdateSong({ match: { params } }) {
       <a href="/">
         <button>Back to Home Page</button>
       </a>
-      {redirect && <Redirect to="/" />}
+      {redirect && <Redirect to="/" push />}
     </>
   );
 }
