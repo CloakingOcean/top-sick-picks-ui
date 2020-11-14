@@ -24,7 +24,35 @@ function UpdateSong({ match: { params } }) {
     let artistsArray = [];
     artistsArray.push("");
     setArtists(artistsArray);
+    handlePopulation();
   }, []);
+
+  async function handlePopulation() {
+    console.log("CALLING HANDLE POPULATION!");
+    const url = `http://localhost:3005/api/songs/5fac3b96b6d9a20cd4eee67a`;
+    console.log("DATA:");
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        const form = document.getElementById("resource-form");
+        console.dir(form);
+
+        Object.keys(data)
+          .filter((field) => field !== "_id")
+          .forEach((field) => {
+            const targetElement = document.getElementById(field);
+
+            if (targetElement == null) {
+              console.log(`targetElement is null! Field is: ${field}`);
+              return;
+            }
+
+            document.getElementById(field).value = data[field];
+          });
+      });
+  }
 
   function onInputChange(e, setStateFunc) {
     setStateFunc(e.target.value);
@@ -33,7 +61,7 @@ function UpdateSong({ match: { params } }) {
   function onSubmit(event) {
     event.preventDefault();
 
-    const form = event.target.closest("form");
+    const form = document.getElementById("resource-form");
 
     const bodyObj = {};
 
@@ -114,10 +142,10 @@ function UpdateSong({ match: { params } }) {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="nameInput">Name</label>
+      <form id="resource-form" onSubmit={onSubmit}>
+        <label htmlFor="name">Name</label>
         <input
-          id="nameInput"
+          id="name"
           value={name}
           name="name"
           type="text"
@@ -136,6 +164,7 @@ function UpdateSong({ match: { params } }) {
             artists.map((artist, index) => {
               return (
                 <input
+                  id="artists"
                   key={index}
                   value={artist}
                   name="artists"
@@ -168,7 +197,7 @@ function UpdateSong({ match: { params } }) {
 
         <label htmlFor="youtubeLinkInput">Youtube Link</label>
         <input
-          id="youtubeLinkInput"
+          id="youtube-link"
           value={youtubeLink}
           name="youtube-link"
           type="text"
@@ -179,7 +208,7 @@ function UpdateSong({ match: { params } }) {
 
         <label htmlFor="ratingInput">Rating</label>
         <input
-          id="ratingInput"
+          id="rating"
           name="rating"
           value={rating}
           type="text"
@@ -190,7 +219,7 @@ function UpdateSong({ match: { params } }) {
 
         <label htmlFor="reviewInput">Review</label>
         <input
-          id="reviewInput"
+          id="review"
           name="review"
           value={review}
           type="textarea"
