@@ -47,7 +47,14 @@ function ResourceForm({
       }
     });
 
-    fetch(`http://localhost:3005/api/songs/${params.id}`, {
+    let url;
+    if (!create) {
+      url = `http://localhost:3005/api/songs/${params.id}`;
+    } else {
+      url = `http://localhost:3005/api/songs/`;
+    }
+
+    fetch(url, {
       method: create ? "POST" : "PUT",
       headers: {
         Accept: "application/json",

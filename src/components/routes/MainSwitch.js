@@ -3,8 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Index from "../../containers/Index";
-import UpdateSong from "../../components/forms/UpdateSong";
-import CreateSong from "../../components/forms/CreateSong";
+import CreateUpdateSong from "../../components/forms/CreateUpdateSong";
 
 function MainSwitch() {
   return (
@@ -15,15 +14,15 @@ function MainSwitch() {
 
       <Route
         path="/api/songs/createSong"
-        render={() => {
-          <CreateUpdateSong {...props} create={true} />;
+        render={(props) => {
+          return <CreateUpdateSong {...props} create={true} />;
         }}
       />
 
       <Route
         path="/api/songs/updateSong/:id"
-        render={() => {
-          <CreateUpdateSong {...props} create={false} />;
+        render={(props) => {
+          return <CreateUpdateSong {...props} create={false} />;
         }}
       />
     </Router>

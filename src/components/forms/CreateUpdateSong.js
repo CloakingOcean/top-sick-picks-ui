@@ -24,12 +24,20 @@ function UpdateSong({ match: { params }, create }) {
     setArtists(artistsArray);
 
     if (!create) {
+      console.log("ADDING POPULATION BECAUSE IT Is UPDATE, NOT CREATE");
       handlePopulation(artistsArray);
+    } else {
+      console.log("NOT ADDING POPULATION BECAUSE IT IS CREATE, NOT UDPATE");
     }
   }, []);
 
   async function handlePopulation(artistsArray) {
-    const url = `http://localhost:3005/api/songs/${params.id}`;
+    let url;
+    if (!create) {
+      url = `http://localhost:3005/api/songs/${params.id}`;
+    } else {
+      url = `http://localhost:3005/api/songs/`;
+    }
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -95,7 +103,7 @@ function UpdateSong({ match: { params }, create }) {
       deleteArtistInput={deleteArtistInput}
       addArtistInput={addArtistInput}
       onArtistsInputChange={onArtistsInputChange}
-      create=create
+      create={create}
     />
   );
 }
