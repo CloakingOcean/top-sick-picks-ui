@@ -20,14 +20,16 @@ function UpdateSong({ match: { params } }) {
   const [review, setReview] = React.useState("");
   const [redirect, setRedirect] = React.useState(false);
 
+  const GROUPED_FIELDS = ["artists"];
+
   React.useEffect(() => {
     let artistsArray = [];
     artistsArray.push("");
     setArtists(artistsArray);
-    handlePopulation();
+    handlePopulation(artistsArray);
   }, []);
 
-  async function handlePopulation() {
+  async function handlePopulation(artistsArray) {
     console.log("CALLING HANDLE POPULATION!");
     const url = `http://localhost:3005/api/songs/5fac3b96b6d9a20cd4eee67a`;
     console.log("DATA:");
@@ -49,7 +51,43 @@ function UpdateSong({ match: { params } }) {
               return;
             }
 
+            if (field === "name") {
+              console.log("Is name!");
+              console.log(document.getElementById("name").value);
+              document.getElementById("name").value = data[field];
+
+              console.log("LOGGING VALUE");
+              console.log(document.getElementById("name").value);
+              console.log("LOGGING VALUE");
+            }
+
+            if (GROUPED_FIELDS.includes(field)) {
+              //Is a grouped thing. Should be included as such
+              setArtists(data[field]);
+              return;
+            }
+
             document.getElementById(field).value = data[field];
+
+            switch (field) {
+              case "name":
+                setName(data[field]);
+                break;
+              case "artists":
+                setArtists(data[field]);
+                break;
+              case "youtube-link":
+                setYoutubeLink(data[field]);
+                break;
+              case "rating":
+                setRating(data[field]);
+                break;
+              case "review":
+                setReview(data[field]);
+                break;
+            }
+
+            console.log("Updated State");
           });
       });
   }

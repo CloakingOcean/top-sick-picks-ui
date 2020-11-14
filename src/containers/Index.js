@@ -7,7 +7,7 @@ function Index() {
 
   const [maxColumnLengths, setMaxColumnLengths] = React.useState({});
 
-  const groupedFields = ["artists"];
+  const GROUPED_FIELDS = ["artists"];
 
   /* 
     Contains the maxmium length of grouped categories.
@@ -25,7 +25,7 @@ function Index() {
     if (songs === undefined) {
       setSongs(data);
 
-      groupedFields.forEach((field) => {
+      GROUPED_FIELDS.forEach((field) => {
         let maxFieldLength = 0;
 
         data.forEach((song) => {
