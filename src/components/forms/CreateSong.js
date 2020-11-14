@@ -25,70 +25,7 @@ function UpdateSong({ match: { params } }) {
     let artistsArray = [];
     artistsArray.push("");
     setArtists(artistsArray);
-    handlePopulation(artistsArray);
   }, []);
-
-  async function handlePopulation(artistsArray) {
-    const url = `http://localhost:3005/api/songs/5fac3b96b6d9a20cd4eee67a`;
-    console.log("DATA:");
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-
-        const form = document.getElementById("resource-form");
-        console.dir(form);
-
-        Object.keys(data)
-          .filter((field) => field !== "_id")
-          .forEach((field) => {
-            const targetElement = document.getElementById(field);
-
-            if (targetElement == null) {
-              console.log(`targetElement is null! Field is: ${field}`);
-              return;
-            }
-
-            if (field === "name") {
-              console.log("Is name!");
-              console.log(document.getElementById("name").value);
-              document.getElementById("name").value = data[field];
-
-              console.log("LOGGING VALUE");
-              console.log(document.getElementById("name").value);
-              console.log("LOGGING VALUE");
-            }
-
-            if (GROUPED_FIELDS.includes(field)) {
-              //Is a grouped thing. Should be included as such
-              setArtists(data[field]);
-              return;
-            }
-
-            document.getElementById(field).value = data[field];
-
-            switch (field) {
-              case "name":
-                setName(data[field]);
-                break;
-              case "artists":
-                setArtists(data[field]);
-                break;
-              case "youtube-link":
-                setYoutubeLink(data[field]);
-                break;
-              case "rating":
-                setRating(data[field]);
-                break;
-              case "review":
-                setReview(data[field]);
-                break;
-            }
-
-            console.log("Updated State");
-          });
-      });
-  }
 
   function onInputChange(e, setStateFunc) {
     setStateFunc(e.target.value);
@@ -123,8 +60,8 @@ function UpdateSong({ match: { params } }) {
       }
     });
 
-    fetch(`http://localhost:3005/api/songs/${params.id}`, {
-      method: "PUT",
+    fetch(`http://localhost:3005/api/songs/`, {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

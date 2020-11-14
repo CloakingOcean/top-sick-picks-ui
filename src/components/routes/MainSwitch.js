@@ -3,8 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Index from "../../containers/Index";
-import EditSong from "../../components/forms/EditSong";
 import UpdateSong from "../../components/forms/UpdateSong";
+import CreateSong from "../../components/forms/CreateSong";
 
 function MainSwitch() {
   return (
@@ -13,7 +13,7 @@ function MainSwitch() {
         <Index />
       </Route>
 
-      <Route path="/api/songs/editSong/:id" component={EditSong} />
+      <Route path="/api/songs/createSong" component={CreateSong} />
 
       <Route path="/api/songs/updateSong/:id" component={UpdateSong} />
     </Router>

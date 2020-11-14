@@ -128,7 +128,9 @@ function Index() {
           })}
       </table>
 
-      <button>Create Song</button>
+      <a href="/api/songs/createSong">
+        <button>Create Song</button>
+      </a>
     </>
   );
 }
