@@ -20,6 +20,7 @@ function ResourceForm({
   addArtistInput,
   deleteArtistInput,
   onArtistsInputChange,
+  create,
 }) {
   function onSubmit(event) {
     event.preventDefault();
@@ -47,7 +48,7 @@ function ResourceForm({
     });
 
     fetch(`http://localhost:3005/api/songs/${params.id}`, {
-      method: "PUT",
+      method: create ? "POST" : "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

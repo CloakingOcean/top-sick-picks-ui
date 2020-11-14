@@ -13,9 +13,19 @@ function MainSwitch() {
         <Index />
       </Route>
 
-      <Route path="/api/songs/createSong" component={CreateSong} />
+      <Route
+        path="/api/songs/createSong"
+        render={() => {
+          <CreateUpdateSong {...props} create={true} />;
+        }}
+      />
 
-      <Route path="/api/songs/updateSong/:id" component={UpdateSong} />
+      <Route
+        path="/api/songs/updateSong/:id"
+        render={() => {
+          <CreateUpdateSong {...props} create={false} />;
+        }}
+      />
     </Router>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import ResourceForm from "./ResourceForm";
 
-function UpdateSong({ match: { params } }) {
+function UpdateSong({ match: { params }, create }) {
   const [name, setName] = React.useState("");
   const [artists, setArtists] = React.useState(""); // Array of text values
   const [youtubeLink, setYoutubeLink] = React.useState("");
@@ -22,7 +22,10 @@ function UpdateSong({ match: { params } }) {
     let artistsArray = [];
     artistsArray.push("");
     setArtists(artistsArray);
-    handlePopulation(artistsArray);
+
+    if (!create) {
+      handlePopulation(artistsArray);
+    }
   }, []);
 
   async function handlePopulation(artistsArray) {
@@ -92,6 +95,7 @@ function UpdateSong({ match: { params } }) {
       deleteArtistInput={deleteArtistInput}
       addArtistInput={addArtistInput}
       onArtistsInputChange={onArtistsInputChange}
+      create=create
     />
   );
 }
