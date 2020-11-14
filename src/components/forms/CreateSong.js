@@ -39,11 +39,7 @@ function UpdateSong({ match: { params } }) {
     const bodyObj = {};
 
     form.querySelectorAll("input").forEach((input) => {
-      console.log(input);
-
       if (!input.hasAttribute("data-form-group")) {
-        console.log("VALUE!~!!!!!!!!!");
-        console.log(input.value);
         bodyObj[input.name] = input.value;
         return;
       }
@@ -68,28 +64,15 @@ function UpdateSong({ match: { params } }) {
       },
       body: JSON.stringify(bodyObj),
     });
-    console.log("Submitted");
-    console.log(bodyObj);
 
     setRedirect(true);
   }
 
   function addArtistInput() {
-    console.log("Artists:");
-    for (let prop of artists) {
-      console.log(`prop: ${prop}`);
-    }
-
     const tempArray = artists.slice(0);
     tempArray[tempArray.length] = "";
 
-    console.log("TempArray:");
-    for (let prop of tempArray) {
-      console.log(`prop: ${prop}`);
-    }
-
     setArtists(tempArray);
-    console.log("Hit add Artist Input");
   }
 
   function deleteArtistInput() {
@@ -104,7 +87,6 @@ function UpdateSong({ match: { params } }) {
 
   function onArtistsInputChange(event, index) {
     setItemOfArtistsArray(index, event.target.value);
-    console.log(`Changed an artist input: ${event.target.value}!`);
   }
 
   function setItemOfArtistsArray(index, value) {
@@ -129,10 +111,6 @@ function UpdateSong({ match: { params } }) {
 
         <label>
           Artists
-          {artists &&
-            artists.forEach((artist) => {
-              console.log("artist: " + artist);
-            })}
           {artists &&
             artists.map((artist, index) => {
               return (

@@ -30,12 +30,9 @@ function UpdateSong({ match: { params } }) {
 
   async function handlePopulation(artistsArray) {
     const url = `http://localhost:3005/api/songs/${params.id}`;
-    console.log("DATA:");
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         const form = document.getElementById("resource-form");
         console.dir(form);
 
@@ -45,18 +42,11 @@ function UpdateSong({ match: { params } }) {
             const targetElement = document.getElementById(field);
 
             if (targetElement == null) {
-              console.log(`targetElement is null! Field is: ${field}`);
               return;
             }
 
             if (field === "name") {
-              console.log("Is name!");
-              console.log(document.getElementById("name").value);
               document.getElementById("name").value = data[field];
-
-              console.log("LOGGING VALUE");
-              console.log(document.getElementById("name").value);
-              console.log("LOGGING VALUE");
             }
 
             if (GROUPED_FIELDS.includes(field)) {
@@ -84,8 +74,6 @@ function UpdateSong({ match: { params } }) {
                 setReview(data[field]);
                 break;
             }
-
-            console.log("Updated State");
           });
       });
   }
@@ -102,11 +90,7 @@ function UpdateSong({ match: { params } }) {
     const bodyObj = {};
 
     form.querySelectorAll("input").forEach((input) => {
-      console.log(input);
-
       if (!input.hasAttribute("data-form-group")) {
-        console.log("VALUE!~!!!!!!!!!");
-        console.log(input.value);
         bodyObj[input.name] = input.value;
         return;
       }
@@ -131,28 +115,15 @@ function UpdateSong({ match: { params } }) {
       },
       body: JSON.stringify(bodyObj),
     });
-    console.log("Submitted");
-    console.log(bodyObj);
 
     setRedirect(true);
   }
 
   function addArtistInput() {
-    console.log("Artists:");
-    for (let prop of artists) {
-      console.log(`prop: ${prop}`);
-    }
-
     const tempArray = artists.slice(0);
     tempArray[tempArray.length] = "";
 
-    console.log("TempArray:");
-    for (let prop of tempArray) {
-      console.log(`prop: ${prop}`);
-    }
-
     setArtists(tempArray);
-    console.log("Hit add Artist Input");
   }
 
   function deleteArtistInput() {
@@ -167,7 +138,6 @@ function UpdateSong({ match: { params } }) {
 
   function onArtistsInputChange(event, index) {
     setItemOfArtistsArray(index, event.target.value);
-    console.log(`Changed an artist input: ${event.target.value}!`);
   }
 
   function setItemOfArtistsArray(index, value) {
@@ -193,10 +163,6 @@ function UpdateSong({ match: { params } }) {
         <label>
           Artists
           {artists &&
-            artists.forEach((artist) => {
-              console.log("artist: " + artist);
-            })}
-          {artists &&
             artists.map((artist, index) => {
               return (
                 <input
@@ -221,15 +187,6 @@ function UpdateSong({ match: { params } }) {
         <button type="button" onClick={deleteArtistInput}>
           Delete
         </button>
-
-        {/* <input
-        id="artistsInput"
-        value={artists}
-        type="text"
-        onChange={(e) => {
-          onInputChange(e, setArtists);
-        }}
-      /> */}
 
         <label htmlFor="youtubeLinkInput">Youtube Link</label>
         <input

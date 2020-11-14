@@ -33,8 +33,6 @@ function Index() {
         data.forEach((song) => {
           if (song.artists.length > maxFieldLength) {
             maxFieldLength = song.artists.length;
-            console.log("INCREMENTED");
-            console.log(`maxFieldLength: ${maxFieldLength}`);
           }
         });
 
@@ -79,21 +77,7 @@ function Index() {
                   {song.artists &&
                     maxColumnLengths &&
                     song.artists.map((artist, index) => {
-                      console.log("MaxCOlumnLengths:");
-                      console.log(maxColumnLengths);
-                      const returnJSX = [<td key={artist}>{artist}</td>];
-
-                      {
-                        /* console.log(`Length: ${song.artists.length}`);
-                      console.log("MATH: " + (song.artists.length - 1));
-                      console.log(`artist: ${artist}, index: ${index}`); */
-                      }
-
                       if (index === song.artists.length - 1) {
-                        console.log("Last iteration...");
-                        console.log(
-                          `MATHS: ${maxColumnLengths["artists"] - index}`
-                        );
                         for (
                           let i = 0;
                           i < maxColumnLengths["artists"] - (index + 1);

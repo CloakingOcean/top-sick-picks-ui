@@ -20,15 +20,9 @@ function DeleteButton({ songProp, updateDelete }) {
     })
       .then((res) => res.text()) // or res.json()
       .then((res) => {
-        // console.log(res);
-        console.log("Song:");
-        console.log(song);
         setSong({
           test: "test",
         });
-        console.log("Song After:");
-        console.log(song);
-        console.log("setSong To Null!");
 
         updateDelete(song._id);
       });
