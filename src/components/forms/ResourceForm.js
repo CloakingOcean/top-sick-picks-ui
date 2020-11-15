@@ -24,6 +24,8 @@ function ResourceForm({
   onArtistsInputChange,
   create,
 }) {
+  const [backHome, setBackHome] = React.useState(false);
+
   function onSubmit(event) {
     event.preventDefault();
 
@@ -90,7 +92,7 @@ function ResourceForm({
         )}
 
         <div class="button-container">
-          <Button color="primary" type="button" onClick={addArtistInput}>
+          <Button color="success" type="button" onClick={addArtistInput}>
             Add
           </Button>
           <Button color="danger" type="button" onClick={deleteArtistInput}>
@@ -119,13 +121,25 @@ function ResourceForm({
           inputType="text"
         />
 
-        <button type="submit" className="submit-button" onClick={onSubmit}>
+        <Button
+          color="primary"
+          type="submit"
+          className="submit-button"
+          onClick={onSubmit}
+        >
           Submit
-        </button>
+        </Button>
       </Form>
       <a href="/">
-        <button>Back to Home Page</button>
+        <Button
+          onClick={() => {
+            setBackHome(true);
+          }}
+        >
+          Back to Home Page
+        </Button>
       </a>
+      {backHome && <Redirect to="/" push />}
       {redirect && <Redirect to="/" push />}
     </>
   );

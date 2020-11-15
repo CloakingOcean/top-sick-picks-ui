@@ -4,6 +4,8 @@ import Header from "../header/Header";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import Footer from "../footer/Footer";
+
 import Index from "../../containers/Index";
 import CreateUpdateSong from "../../components/forms/CreateUpdateSong";
 
@@ -29,6 +31,8 @@ function MainSwitch() {
           return <CreateUpdateSong {...props} create={false} />;
         }}
       />
+
+      <Route path="/" component={Footer} />
     </Router>
   );
 }

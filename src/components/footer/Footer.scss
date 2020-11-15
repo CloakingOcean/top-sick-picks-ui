@@ -1,0 +1,13 @@
+@import "../../style-variables/variables.scss";
+
+footer {
+  text-align: center;
+  background-color: $highlight-color;
+  max-width: 50%;
+  padding: 0.3rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+}

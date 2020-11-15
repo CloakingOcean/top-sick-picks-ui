@@ -4,6 +4,8 @@ import DeleteButton from "./DeleteButton";
 
 import { Link } from "react-router-dom";
 
+import { Button } from "reactstrap";
+
 import "./Index.scss";
 
 function Index() {
@@ -102,7 +104,7 @@ function Index() {
                   <td>{song.review}</td>
                   <td>
                     <Link to={`/api/songs/updateSong/${encodeURI(song._id)}`}>
-                      <button>Update</button>
+                      <Button color="primary">Update</Button>
                     </Link>
                   </td>
                   <td>
@@ -115,7 +117,7 @@ function Index() {
       </table>
 
       <Link to="/api/songs/createSong">
-        <button>Create Song</button>
+        <Button color="success">Create Song</Button>
       </Link>
     </main>
   );
