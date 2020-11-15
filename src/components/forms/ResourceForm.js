@@ -33,7 +33,15 @@ function ResourceForm({
 
     const bodyObj = {};
 
-    form.querySelectorAll("input").forEach((input) => {
+    let validCount = 0;
+
+    const inputs = form.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+      if (input.value !== null && input.value !== "" && input) {
+        validCount++;
+      }
+
       if (!input.hasAttribute("data-form-group")) {
         bodyObj[input.name] = input.value;
         return;
@@ -51,6 +59,8 @@ function ResourceForm({
       }
     });
 
+    const patch = validCount === inputs.size;
+
     let url;
     if (!create) {
       url = `http://localhost:3005/api/songs/${params.id}`;
@@ -58,8 +68,14 @@ function ResourceForm({
       url = `http://localhost:3005/api/songs/`;
     }
 
+    if (patch) {
+      console.log("SENDING WITH PATCH!");
+    } else {
+      console.log("SENDING WITH PUT!");
+    }
+
     fetch(url, {
-      method: create ? "POST" : "PUT",
+      method: create ? "POST" : patch ? "PATCH" : "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -91,7 +107,7 @@ function ResourceForm({
           />
         )}
 
-        <div class="button-container">
+        <div className="button-container">
           <Button color="success" type="button" onClick={addArtistInput}>
             Add
           </Button>
