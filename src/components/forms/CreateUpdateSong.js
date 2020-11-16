@@ -20,6 +20,8 @@ function UpdateSong({ match: { params }, create }) {
     setRedirect: setRedirect,
   };
 
+  const API_URL = process.env.API_URL;
+
   React.useEffect(() => {
     let artistsArray = [];
     artistsArray.push("");
@@ -33,9 +35,9 @@ function UpdateSong({ match: { params }, create }) {
   async function handlePopulation(artistsArray) {
     let url;
     if (!create) {
-      url = `http://localhost:3005/api/songs/${params.id}`;
+      url = `${API_URL}/api/songs/${params.id}`;
     } else {
-      url = `http://localhost:3005/api/songs/`;
+      url = `${API_URL}/api/songs/`;
     }
     fetch(url)
       .then((response) => response.json())

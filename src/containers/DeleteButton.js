@@ -3,6 +3,8 @@ import "./DeleteButton.scss";
 
 import { Button } from "reactstrap";
 
+const API_URL = process.env.API_URL;
+
 function DeleteButton({ songProp, updateDelete }) {
   const [song, setSong] = React.useState();
 
@@ -18,7 +20,7 @@ function DeleteButton({ songProp, updateDelete }) {
       return;
     }
 
-    fetch(`http://localhost:3005/api/songs/${song._id}`, {
+    fetch(`${API_URL}/api/songs/${song._id}`, {
       method: "DELETE",
     })
       .then((res) => res.text()) // or res.json()

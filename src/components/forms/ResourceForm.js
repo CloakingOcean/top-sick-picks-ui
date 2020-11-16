@@ -26,6 +26,8 @@ function ResourceForm({
 }) {
   const [backHome, setBackHome] = React.useState(false);
 
+  const API_URL = process.env.API_URL;
+
   function onSubmit(event) {
     event.preventDefault();
 
@@ -63,9 +65,9 @@ function ResourceForm({
 
     let url;
     if (!create) {
-      url = `http://localhost:3005/api/songs/${params.id}`;
+      url = `${API_URL}/api/songs/${params.id}`;
     } else {
-      url = `http://localhost:3005/api/songs/`;
+      url = `${API_URL}/api/songs/`;
     }
 
     if (patch) {
