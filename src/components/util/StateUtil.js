@@ -26,19 +26,50 @@ exports.addItemToStateArray = function addItemToStateArray(
 exports.deleteItemFromStateArray = function deleteItemFromStateArray(
   stateArray,
   setStateArray,
-  item
+  item,
+  single = true
 ) {
   if (
-    !handleArrayShouldContainTargetItemValidation(stateArray, getFunctionName())
+    !handleArrayShouldContainTargetItemValidation(
+      stateArray,
+      item,
+      getFunctionName()
+    )
   ) {
+    console.log("array didn't contain item!");
     return;
+  } else {
+    console.log("array did contain item!");
   }
 
-  const updatedArray = stateArray.filter((value) => value === item); // Ensures this list doesn't include the item to be deleted.
+  let updatedArray;
+
+  // Makes sure that the user of the funciton can specify removing a single iteration, or all iterations
+  if (single) {
+    console.log("HANDLING SINGLE!");
+    let found = false;
+    updatedArray = stateArray.filter((value) => {
+      if (value === item) {
+        if (found) {
+          return true;
+        }
+
+        found = true;
+        return false;
+      }
+      return true;
+    });
+  } else {
+    console.log("HANDLING ALL!");
+    updatedArray = stateArray.filter((value) => value !== item); // Ensures this list doesn't include the item to be deleted.
+  }
 
   setStateArray(updatedArray);
 
   console.log(`Successfully executed ${getFunctionName()}`);
+
+  console.log("UPDATED ARRAY");
+  console.log(stateArray);
 };
 
 exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayByMongdoId(
@@ -54,6 +85,11 @@ exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayBy
     )
   ) {
     return;
+  }
+
+  if (!isNaN(id)) {
+    // ID is a number. Let's convert
+    id = id.toString();
   }
 
   const updatedArray = stateArray.filter((value) => value._id !== id); // Ensures this list doesn't include the item to be deleted.
@@ -94,11 +130,12 @@ exports.incrementDecrementStateObjectProperty = function incrementDecrementState
   key,
   amount = 1
 ) {
+  console.log("CALLED INCREMENTDECREMENTSTATEOBJECTPROPERTY");
   if (
     !handleStateObjectShouldContainTargetPropertyWithNumberValueValidation(
       stateObject,
       key,
-      getFunctionName
+      getFunctionName()
     )
   ) {
     return;
@@ -110,8 +147,17 @@ exports.incrementDecrementStateObjectProperty = function incrementDecrementState
   */
 
   const previousNumberValue = stateObject[key];
+
+  const previousIsString = typeof previousNumberValue !== "number";
+  const amountIsString = typeof amount !== "number";
+
+  const newValue =
+    (previousIsString ? parseInt(previousNumberValue) : previousNumberValue) +
+    (amountIsString ? parseInt(amount) : amount);
+
   const stateObjectClone = { ...stateObject };
-  stateObjectClone[key] = previousNumberValue + amount;
+
+  stateObjectClone[key] = previousIsString ? newValue.toString() : newValue;
 
   setStateObject(stateObjectClone);
 
@@ -198,8 +244,10 @@ const handleStateObjectShouldContainTargetPropertyValidation = (
     return;
   }
 
-  if (inputObject.hasOwnProperty(key)) {
-    `Call to ${functionName} provides an object without target property! Target property: ${key}`;
+  if (!inputObject.hasOwnProperty(key)) {
+    console.error(
+      `Call to ${functionName} provides an object without target property! Target property: ${key}`
+    );
     return false;
   }
 
