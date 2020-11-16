@@ -1,5 +1,7 @@
 import React from "react";
 
+import createFragment from "react-addons-create-fragment";
+
 import { Label } from "reactstrap";
 /**
  * Props:
@@ -33,33 +35,40 @@ function InputField({
         isArray !== undefined &&
         stateValue.map((resource, index) => {
           return (
-            <>
-              <input
-                id={name}
-                key={index}
-                value={resource}
-                name={name}
-                type={inputType}
-                className="form-multi-input"
-                onChange={(event) => {
-                  onChange(event, index);
-                }}
-                data-form-group="artists"
-              />
-            </>
+            <input
+              id={name}
+              key={index}
+              value={resource}
+              name={name}
+              type={inputType}
+              className="form-multi-input"
+              onChange={(event) => {
+                onChange(event, index);
+              }}
+              data-form-group="artists"
+            />
           );
         })}
 
       {!isArray && isArray !== undefined && (
         <>
-          <Label htmlFor={name}>{name}</Label>
-          <input
-            id={name}
-            value={stateValue}
-            name={name}
-            type={inputType}
-            onChange={onChange}
-          />
+          {createFragment({
+            label: (
+              <Label key={`${name}-label`} htmlFor={name}>
+                {name}
+              </Label>
+            ),
+            input: (
+              <input
+                id={name}
+                key={`${name}-input`}
+                value={stateValue}
+                name={name}
+                type={inputType}
+                onChange={onChange}
+              />
+            ),
+          })}
         </>
       )}
     </>

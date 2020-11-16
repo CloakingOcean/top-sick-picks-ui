@@ -26,7 +26,7 @@ function ResourceForm({
 }) {
   const [backHome, setBackHome] = React.useState(false);
 
-  const API_URL = process.env.API_URL;
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
   function onSubmit(event) {
     event.preventDefault();
@@ -61,19 +61,24 @@ function ResourceForm({
       }
     });
 
-    const patch = validCount === inputs.size;
+    const patch = validCount !== inputs.size;
 
     let url;
+
     if (!create) {
-      url = `${API_URL}/api/songs/${params.id}`;
+      url = `${REACT_APP_API_URL}/api/songs/${params.id}`;
     } else {
-      url = `${API_URL}/api/songs/`;
+      url = `${REACT_APP_API_URL}/api/songs/`;
     }
 
-    if (patch) {
-      console.log("SENDING WITH PATCH!");
+    if (!create) {
+      if (patch) {
+        console.log("SENDING WITH PATCH!");
+      } else {
+        console.log("SENDING WITH PUT!");
+      }
     } else {
-      console.log("SENDING WITH PUT!");
+      console.log("SENDING WITH CREATE!");
     }
 
     fetch(url, {

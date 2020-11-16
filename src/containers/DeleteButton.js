@@ -3,7 +3,7 @@ import "./DeleteButton.scss";
 
 import { Button } from "reactstrap";
 
-const API_URL = process.env.API_URL;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 function DeleteButton({ songProp, updateDelete }) {
   const [song, setSong] = React.useState();
@@ -20,7 +20,7 @@ function DeleteButton({ songProp, updateDelete }) {
       return;
     }
 
-    fetch(`${API_URL}/api/songs/${song._id}`, {
+    fetch(`${REACT_APP_API_URL}/api/songs/${song._id}`, {
       method: "DELETE",
     })
       .then((res) => res.text()) // or res.json()
@@ -38,7 +38,7 @@ function DeleteButton({ songProp, updateDelete }) {
   }, []);
 
   return (
-    <Button class="delete" color="danger" onClick={handleOnClick}>
+    <Button color="danger" onClick={handleOnClick}>
       Delete
     </Button>
   );

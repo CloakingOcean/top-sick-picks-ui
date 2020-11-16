@@ -14,7 +14,7 @@ function Index() {
   const [maxColumnLengths, setMaxColumnLengths] = React.useState({});
 
   const GROUPED_FIELDS = ["artists"];
-  const API_URL = process.env.API_URL;
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
   /* 
     Contains the maxmium length of grouped categories.
@@ -26,7 +26,8 @@ function Index() {
   */
 
   React.useEffect(async function () {
-    const url = `${API_URL}/api/songs/`;
+    const url = `${REACT_APP_API_URL}/api/songs/`;
+
     const response = await fetch(url);
     const data = await response.json();
     if (songs === undefined) {
@@ -76,7 +77,7 @@ function Index() {
           {songs !== undefined &&
             songs.map((song) => {
               return (
-                <tr>
+                <tr key={song._id}>
                   <td>{song.name}</td>
                   {song.artists &&
                     maxColumnLengths &&
