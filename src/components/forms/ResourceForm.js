@@ -25,6 +25,7 @@ function ResourceForm({
   create,
 }) {
   const [backHome, setBackHome] = React.useState(false);
+  const [changedFields, setChangedFields] = React.useState([]);
 
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 

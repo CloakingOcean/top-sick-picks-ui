@@ -12,8 +12,6 @@ function Index() {
   const [songs, setSongs] = React.useState();
 
   const [maxColumnLengths, setMaxColumnLengths] = React.useState({});
-
-  const GROUPED_FIELDS = ["artists"];
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
   /* 
@@ -33,19 +31,21 @@ function Index() {
     if (songs === undefined) {
       setSongs(data);
 
-      GROUPED_FIELDS.forEach((field) => {
-        let maxFieldLength = 0;
+      data
+        .filter((field) => Array.isArray(field))
+        .forEach((field) => {
+          let maxFieldLength = 0;
 
-        data.forEach((song) => {
-          if (song.artists.length > maxFieldLength) {
-            maxFieldLength = song.artists.length;
-          }
+          data.forEach((song) => {
+            if (song.artists.length > maxFieldLength) {
+              maxFieldLength = song.artists.length;
+            }
+          });
+
+          const maxColumnLengthsCopy = Object.entries(maxColumnLengths);
+          maxColumnLengthsCopy[field] = maxFieldLength;
+          setMaxColumnLengths(maxColumnLengthsCopy);
         });
-
-        const maxColumnLengthsCopy = Object.entries(maxColumnLengths);
-        maxColumnLengthsCopy[field] = maxFieldLength;
-        setMaxColumnLengths(maxColumnLengthsCopy);
-      });
     }
   });
 
