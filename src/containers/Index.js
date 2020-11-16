@@ -33,8 +33,8 @@ function Index() {
     if (songs === undefined) {
       setSongs(data);
 
-      data
-        .filter((field) => Array.isArray(field))
+      Object.keys(data[0])
+        .filter((field) => Array.isArray(data[0][field]))
         .forEach((field) => {
           let maxFieldLength = 0;
 
