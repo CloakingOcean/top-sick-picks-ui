@@ -1,10 +1,6 @@
 // ** METHODS FOR ARRAY STATE **
 
-exports.addItemToStateArray = function addItemToStateArray(
-  stateArray,
-  setStateArray,
-  item
-) {
+export function addItemToStateArray(stateArray, setStateArray, item) {
   if (
     !handleArrayShouldNotContainTargetItemValidation(
       stateArray,
@@ -21,9 +17,9 @@ exports.addItemToStateArray = function addItemToStateArray(
   setStateArray(updatedArray);
 
   console.log(`Successfully executed ${getFunctionName()}`);
-};
+}
 
-exports.deleteItemFromStateArray = function deleteItemFromStateArray(
+export function deleteItemFromStateArray(
   stateArray,
   setStateArray,
   item,
@@ -70,9 +66,9 @@ exports.deleteItemFromStateArray = function deleteItemFromStateArray(
 
   console.log("UPDATED ARRAY");
   console.log(stateArray);
-};
+}
 
-exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayByMongdoId(
+export function deleteItemFromStateArrayByMongdoId(
   stateArray,
   setStateArray,
   id
@@ -97,11 +93,11 @@ exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayBy
   setStateArray(updatedArray);
 
   console.log(`Successfully executed ${getFunctionName()}`);
-};
+}
 
 // ** METHODS FOR OBJECT STATE **
 
-exports.setStateObjectProperty = function setStateObjectProperty(
+export function setStateObjectProperty(
   stateObject,
   setStateObject,
   key,
@@ -122,9 +118,9 @@ exports.setStateObjectProperty = function setStateObjectProperty(
   setStateObject(stateObjectCopy);
 
   console.log(`Successfully executed ${getFunctionName()}`);
-};
+}
 
-exports.incrementDecrementStateObjectProperty = function incrementDecrementStateObjectProperty(
+export function incrementDecrementStateObjectProperty(
   stateObject,
   setStateObject,
   key,
@@ -162,12 +158,12 @@ exports.incrementDecrementStateObjectProperty = function incrementDecrementState
   setStateObject(stateObjectClone);
 
   console.log(`Successfully executed ${getFunctionName()}`);
-};
+}
 
 // ** ARRAY VALIDATION METHODS **
 
 // Returns true is validation was successful, false otherwise.
-const handleArrayValidation = (inputArray, functionName) => {
+export function handleArrayValidation(inputArray, functionName) => {
   if (!Array.isArray(inputArray)) {
     // Given state variable is a not an array variable. Return here and log error.
     console.error(
@@ -180,11 +176,11 @@ const handleArrayValidation = (inputArray, functionName) => {
 };
 
 // Returns true is validation was successful, false otherwise.
-const handleArrayShouldContainTargetItemValidation = (
+export function handleArrayShouldContainTargetItemValidation(
   inputArray,
   item,
   functionName
-) => {
+)  {
   if (!handleArrayValidation(inputArray, functionName)) {
     return false;
   }
@@ -201,11 +197,11 @@ const handleArrayShouldContainTargetItemValidation = (
 };
 
 // Returns true is validation was successful, false otherwise.
-const handleArrayShouldNotContainTargetItemValidation = (
+export function handleArrayShouldNotContainTargetItemValidation (
   inputArray,
   item,
   functionName
-) => {
+) {
   if (!handleArrayValidation(inputArray, functionName)) {
     return false;
   }
@@ -223,7 +219,7 @@ const handleArrayShouldNotContainTargetItemValidation = (
 
 // ** OBJECT VALIDATION METHODS **
 
-const handleStateObjectValidation = (inputObject, functionName) => {
+export function handleStateObjectValidation (inputObject, functionName) {
   if (typeof inputObject !== "object" || inputObject === null) {
     // Given state variable is a not an object variable. Return here and log error.
     console.error(
@@ -235,11 +231,11 @@ const handleStateObjectValidation = (inputObject, functionName) => {
   return true;
 };
 
-const handleStateObjectShouldContainTargetPropertyValidation = (
+export function handleStateObjectShouldContainTargetPropertyValidation (
   inputObject,
   key,
   functionName
-) => {
+ ) {
   if (!handleStateObjectValidation(inputObject, functionName)) {
     return;
   }
@@ -254,11 +250,11 @@ const handleStateObjectShouldContainTargetPropertyValidation = (
   return true;
 };
 
-const handleStateObjectShouldContainTargetPropertyWithNumberValueValidation = (
+export function handleStateObjectShouldContainTargetPropertyWithNumberValueValidation (
   inputObject,
   key,
   functionName
-) => {
+) {
   if (
     !handleStateObjectShouldContainTargetPropertyValidation(
       inputObject,
