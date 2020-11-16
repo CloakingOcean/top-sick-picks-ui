@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
 import {
-  setObjectProperty,
+  setStateObjectProperty,
   deleteItemFromStateArrayByMongdoId,
 } from "../components/util/StateUtil";
 
@@ -47,7 +47,7 @@ function Index() {
             }
           });
 
-          setObjectProperty(
+          setStateObjectProperty(
             maxColumnLengths,
             setMaxColumnLengths,
             field,
