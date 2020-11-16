@@ -283,9 +283,8 @@ export function handleStateObjectShouldContainTargetPropertyWithNumberValueValid
 // ** VALIDATION HELPER METHODS **
 
 function getFunctionName() {
-  if (process.env.NODE_ENV === "development") {
-    return getFunctionName.caller.name;
-  }
-
   return "-production-build-";
+  // if (process.env.NODE_ENV === "development") {
+  //   return getFunctionName.caller.name;
+  // }
 }
