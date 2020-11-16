@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import { Button } from "reactstrap";
 
+import { deleteItemFromStateArrayByMongdoId } from "../components/util/StateUtil";
+
 import "./Index.scss";
 
 function Index() {
@@ -50,11 +52,7 @@ function Index() {
   });
 
   function updateDelete(id) {
-    let updatedSongs = songs.filter((song) => {
-      return song._id !== id;
-    });
-
-    setSongs(updatedSongs);
+    deleteItemFromStateArrayByMongdoId(songs, setSongs, id);
   }
 
   return (

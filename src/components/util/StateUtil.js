@@ -34,9 +34,29 @@ exports.deleteItemFromStateArray = function deleteItemFromStateArray(
     return;
   }
 
-  const updatedArray = stateArray
-    .filter((value) => value === item) // Ensures this list doesn't include the item to be deleted.
-    .map((value) => value); // Returns the values as a list.
+  const updatedArray = stateArray.filter((value) => value === item); // Ensures this list doesn't include the item to be deleted.
+
+  setStateArray(updatedArray);
+
+  console.log(`Successfully executed ${getFunctionName()}`);
+};
+
+exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayByMongdoId(
+  stateArray,
+  setStateArray,
+  id
+) {
+  if (
+    !handleObjectShouldContainTargetPropertyValidation(
+      stateArray,
+      "_id",
+      getFunctionName()
+    )
+  ) {
+    return;
+  }
+
+  const updatedArray = stateArray.filter((value) => value._id !== id); // Ensures this list doesn't include the item to be deleted.
 
   setStateArray(updatedArray);
 
@@ -123,7 +143,7 @@ const handleArrayShouldContainTargetItemValidation = (
     return false;
   }
 
-  if (!stateArray.includes(item)) {
+  if (!inputArray.includes(item)) {
     // Target item is not in the array. Return here and log error.
     console.error(
       `Call to ${functionName} provides an array without target item! Target item: ${item}`
@@ -144,7 +164,7 @@ const handleArrayShouldNotContainTargetItemValidation = (
     return false;
   }
 
-  if (stateArray.includes(item)) {
+  if (inputArray.includes(item)) {
     // Target item is in the array. Return here and log error.
     console.error(
       `Call to ${functionName} provides an array with target item already! Target item: ${item}`
@@ -198,10 +218,13 @@ const handleObjectShouldContainTargetPropertyWithNumberValueValidation = (
       functionName
     )
   ) {
-    return;
+    return false;
   }
 
+  console.log(`key: ${key}`);
+
   const targetValue = inputObject[key];
+  console.log(`targetValue: ${targetValue}`);
 
   if (isNaN(targetValue)) {
     console.error(
