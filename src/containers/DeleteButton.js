@@ -11,7 +11,7 @@ function DeleteButton({ songProp, updateDelete }) {
   function handleOnClick(event) {
     event.preventDefault();
 
-    const confirmResult = confirm(
+    const confirmResult = window.confirm(
       "Are you sure you want to delete this song?",
       false
     );
