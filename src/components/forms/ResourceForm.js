@@ -35,15 +35,9 @@ function ResourceForm({
 
     const bodyObj = {};
 
-    let validCount = 0;
-
     const inputs = form.querySelectorAll("input");
 
     inputs.forEach((input) => {
-      if (input.value !== null && input.value !== "" && input) {
-        validCount++;
-      }
-
       if (!input.hasAttribute("data-form-group")) {
         bodyObj[input.name] = input.value;
         return;
@@ -61,8 +55,6 @@ function ResourceForm({
       }
     });
 
-    const patch = validCount !== inputs.size;
-
     let url;
 
     if (!create) {
@@ -72,17 +64,13 @@ function ResourceForm({
     }
 
     if (!create) {
-      if (patch) {
-        console.log("SENDING WITH PATCH!");
-      } else {
-        console.log("SENDING WITH PUT!");
-      }
+      console.log("SENDING WITH PUT!");
     } else {
       console.log("SENDING WITH CREATE!");
     }
 
     fetch(url, {
-      method: create ? "POST" : patch ? "PATCH" : "PUT",
+      method: create ? "POST" : "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
