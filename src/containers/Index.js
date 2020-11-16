@@ -71,10 +71,10 @@ function Index() {
             <th>Delete</th>
           </tr>
         </thead>
-        {songs !== undefined &&
-          songs.map((song) => {
-            return (
-              <tbody key={song._id}>
+        <tbody>
+          {songs !== undefined &&
+            songs.map((song) => {
+              return (
                 <tr>
                   <td>{song.name}</td>
                   {song.artists &&
@@ -111,9 +111,9 @@ function Index() {
                     <DeleteButton songProp={song} updateDelete={updateDelete} />
                   </td>
                 </tr>
-              </tbody>
-            );
-          })}
+              );
+            })}
+        </tbody>
       </table>
 
       <Link to="/api/songs/createSong">
