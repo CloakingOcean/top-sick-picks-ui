@@ -163,7 +163,7 @@ export function incrementDecrementStateObjectProperty(
 // ** ARRAY VALIDATION METHODS **
 
 // Returns true is validation was successful, false otherwise.
-export function handleArrayValidation(inputArray, functionName) => {
+export function handleArrayValidation(inputArray, functionName) {
   if (!Array.isArray(inputArray)) {
     // Given state variable is a not an array variable. Return here and log error.
     console.error(
@@ -173,14 +173,14 @@ export function handleArrayValidation(inputArray, functionName) => {
   }
 
   return true;
-};
+}
 
 // Returns true is validation was successful, false otherwise.
 export function handleArrayShouldContainTargetItemValidation(
   inputArray,
   item,
   functionName
-)  {
+) {
   if (!handleArrayValidation(inputArray, functionName)) {
     return false;
   }
@@ -194,10 +194,10 @@ export function handleArrayShouldContainTargetItemValidation(
   }
 
   return true;
-};
+}
 
 // Returns true is validation was successful, false otherwise.
-export function handleArrayShouldNotContainTargetItemValidation (
+export function handleArrayShouldNotContainTargetItemValidation(
   inputArray,
   item,
   functionName
@@ -215,11 +215,11 @@ export function handleArrayShouldNotContainTargetItemValidation (
   }
 
   return true;
-};
+}
 
 // ** OBJECT VALIDATION METHODS **
 
-export function handleStateObjectValidation (inputObject, functionName) {
+export function handleStateObjectValidation(inputObject, functionName) {
   if (typeof inputObject !== "object" || inputObject === null) {
     // Given state variable is a not an object variable. Return here and log error.
     console.error(
@@ -229,13 +229,13 @@ export function handleStateObjectValidation (inputObject, functionName) {
   }
 
   return true;
-};
+}
 
-export function handleStateObjectShouldContainTargetPropertyValidation (
+export function handleStateObjectShouldContainTargetPropertyValidation(
   inputObject,
   key,
   functionName
- ) {
+) {
   if (!handleStateObjectValidation(inputObject, functionName)) {
     return;
   }
@@ -248,9 +248,9 @@ export function handleStateObjectShouldContainTargetPropertyValidation (
   }
 
   return true;
-};
+}
 
-export function handleStateObjectShouldContainTargetPropertyWithNumberValueValidation (
+export function handleStateObjectShouldContainTargetPropertyWithNumberValueValidation(
   inputObject,
   key,
   functionName
@@ -278,7 +278,7 @@ export function handleStateObjectShouldContainTargetPropertyWithNumberValueValid
   }
 
   return true;
-};
+}
 
 // ** VALIDATION HELPER METHODS **
 
