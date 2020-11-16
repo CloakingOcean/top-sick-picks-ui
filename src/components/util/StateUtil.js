@@ -47,7 +47,7 @@ exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayBy
   id
 ) {
   if (
-    !handleObjectShouldContainTargetPropertyValidation(
+    !handleStateObjectShouldContainTargetPropertyValidation(
       stateArray,
       "_id",
       getFunctionName()
@@ -65,13 +65,13 @@ exports.deleteItemFromStateArrayByMongdoId = function deleteItemFromStateArrayBy
 
 // ** METHODS FOR OBJECT STATE **
 
-exports.setObjectProperty = function setObjectProperty(
+exports.setStateObjectProperty = function setStateObjectProperty(
   stateObject,
   setStateObject,
   key,
   value
 ) {
-  if (!handleObjectValidation(stateObject, getFunctionName())) {
+  if (!handleStateObjectValidation(stateObject, getFunctionName())) {
     return;
   }
 
@@ -88,14 +88,14 @@ exports.setObjectProperty = function setObjectProperty(
   console.log(`Successfully executed ${getFunctionName()}`);
 };
 
-exports.incrementDecrementObjectProperty = function incrementObjectProperty(
+exports.incrementDecrementStateObjectProperty = function incrementDecrementStateObjectProperty(
   stateObject,
   setStateObject,
   key,
   amount = 1
 ) {
   if (
-    !handleObjectShouldContainTargetPropertyWithNumberValueValidation(
+    !handleStateObjectShouldContainTargetPropertyWithNumberValueValidation(
       stateObject,
       key,
       getFunctionName
@@ -175,9 +175,9 @@ const handleArrayShouldNotContainTargetItemValidation = (
   return true;
 };
 
-// ** ARRAY VALIDATION METHODS **
+// ** OBJECT VALIDATION METHODS **
 
-const handleObjectValidation = (inputObject, functionName) => {
+const handleStateObjectValidation = (inputObject, functionName) => {
   if (typeof inputObject !== "object" || inputObject === null) {
     // Given state variable is a not an object variable. Return here and log error.
     console.error(
@@ -189,12 +189,12 @@ const handleObjectValidation = (inputObject, functionName) => {
   return true;
 };
 
-const handleObjectShouldContainTargetPropertyValidation = (
+const handleStateObjectShouldContainTargetPropertyValidation = (
   inputObject,
   key,
   functionName
 ) => {
-  if (!handleObjectValidation(inputObject, functionName)) {
+  if (!handleStateObjectValidation(inputObject, functionName)) {
     return;
   }
 
@@ -206,13 +206,13 @@ const handleObjectShouldContainTargetPropertyValidation = (
   return true;
 };
 
-const handleObjectShouldContainTargetPropertyWithNumberValueValidation = (
+const handleStateObjectShouldContainTargetPropertyWithNumberValueValidation = (
   inputObject,
   key,
   functionName
 ) => {
   if (
-    !handleObjectShouldContainTargetPropertyValidation(
+    !handleStateObjectShouldContainTargetPropertyValidation(
       inputObject,
       key,
       functionName

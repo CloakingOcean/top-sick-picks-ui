@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 
 import { Button } from "reactstrap";
 
-import { deleteItemFromStateArrayByMongdoId } from "../components/util/StateUtil";
+import {
+  setObjectProperty,
+  deleteItemFromStateArrayByMongdoId,
+} from "../components/util/StateUtil";
 
 import "./Index.scss";
 
@@ -44,9 +47,12 @@ function Index() {
             }
           });
 
-          const maxColumnLengthsCopy = Object.entries(maxColumnLengths);
-          maxColumnLengthsCopy[field] = maxFieldLength;
-          setMaxColumnLengths(maxColumnLengthsCopy);
+          setObjectProperty(
+            maxColumnLengths,
+            setMaxColumnLengths,
+            field,
+            maxFieldLength
+          );
         });
     }
   });
