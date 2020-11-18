@@ -8,7 +8,7 @@ import { Button } from "reactstrap";
 
 import {
   setStateObjectProperty,
-  deleteItemFromStateArrayByMongdoId,
+  deleteItemFromStateArrayByMongoId,
 } from "cloak-state-util";
 
 import "./Index.scss";
@@ -58,7 +58,7 @@ function Index() {
   });
 
   function updateDelete(id) {
-    deleteItemFromStateArrayByMongdoId(songs, setSongs, id);
+    deleteItemFromStateArrayByMongoId(songs, setSongs, id);
   }
 
   return (
