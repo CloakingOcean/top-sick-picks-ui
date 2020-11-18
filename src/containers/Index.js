@@ -9,7 +9,7 @@ import { Button } from "reactstrap";
 import {
   setStateObjectProperty,
   deleteItemFromStateArrayByMongdoId,
-} from "../components/util/StateUtil";
+} from "cloak-state-util";
 
 import "./Index.scss";
 
